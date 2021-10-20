@@ -5,7 +5,9 @@ import model.Teacher;
 import service.ManagerPeople;
 import service.ManagerStudent;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ManagerMenu {
     private final ManagerPeople listPeople = new ManagerPeople();
@@ -99,7 +101,13 @@ public class ManagerMenu {
             }
         }
         listStudent.sortMinToMax();
-        listStudent.print();
+        Set<Student> listStudent2 = new HashSet<>();
+        for (int i = 0;i < listStudent.getCount();i++){
+            listStudent2.add((Student) listStudent.getPeoples().get(i));
+        }
+        for(Student student : listStudent2){
+            System.out.println(student.toString());
+        }
     }
 
     public void checkChoice() {
