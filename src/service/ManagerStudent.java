@@ -1,17 +1,15 @@
 package service;
 
+import model.People;
 import model.Student;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ManagerStudent implements ManagerService<Student> {
-    private ArrayList<Student> students;
+    private final ArrayList<Student> students;
     private int count = 0;
     private double sum = 0;
-    public ManagerStudent(ArrayList<Student> students) {
-        students = students;
-    }
 
     public ManagerStudent() {
         this.students = new ArrayList<>();
@@ -56,7 +54,7 @@ public class ManagerStudent implements ManagerService<Student> {
 
     @Override
     public void sort() {
-        students.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        students.sort(Comparator.comparing(People::getName));
     }
 
     @Override
