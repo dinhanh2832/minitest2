@@ -1,13 +1,34 @@
 package menu;
 
 import model.Student;
+import model.Teacher;
+import service.ManagerPeople;
 import service.ManagerStudent;
 
 import java.util.Scanner;
 
 public class ManagerMenu {
+    private final ManagerPeople listPeople = new ManagerPeople();
     private final ManagerStudent listStudent = new ManagerStudent();
 
+    public void addPeople(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1: Giáo viên");
+        System.out.println("2: Học sinh");
+        System.out.println("Chọn đối tượng muốn thêm:");
+        int choice = sc.nextInt();
+        switch (choice){
+            case 1 -> {
+                listPeople.add(createTeacher());
+                listPeople.print();
+            }
+            case 2 -> {
+                listPeople.add(createStudent());
+                listPeople.print();
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + choice);
+        }
+    }
     public Student createStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập tên: ");
@@ -18,16 +39,27 @@ public class ManagerMenu {
         double avg = sc.nextDouble();
         return new Student(name, age1, avg);
     }
+    public Teacher createTeacher() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập tên: ");
+        String name = sc.nextLine();
+        System.out.println("Nhập tuổi: ");
+        int age1 = sc.nextInt();
+        System.out.println("Nhập môn dạy: ");
+        sc.nextLine();
+        String subject = sc.nextLine();
+        return new Teacher(name, age1, subject);
+    }
 
     public void mainMenu() {
         System.out.println("--------------------------");
         System.out.println("Menu");
         System.out.println("1. Tìm học sinh: ");
-        System.out.println("2. Thêm học sinh: ");
-        System.out.println("3. Sửa học sinh: ");
-        System.out.println("4. Xóa học sinh: ");
-        System.out.println("5. Tổng điểm cả lớp: ");
-        System.out.println("6. Sắp xếp theo thứ tự điểm trung bình: ");
+        System.out.println("2. Sửa học sinh: ");
+        System.out.println("3. Xóa học sinh: ");
+        System.out.println("4. Tổng điểm cả lớp: ");
+        System.out.println("5. Sắp xếp theo thứ tự điểm trung bình của học sinh: ");
+        System.out.println("6. Thêm đối tượng: ");
         System.out.println("0. Exit");
         System.out.println("--------------------------");
         System.out.println("Enter your choice: ");
@@ -40,11 +72,6 @@ public class ManagerMenu {
         System.out.println(listStudent.getNameStudent(id));
     }
 
-    public void addStudent() {
-        listStudent.add(createStudent());
-        listStudent.print();
-    }
-
     public void updateStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập id cần sửa: ");
@@ -52,7 +79,8 @@ public class ManagerMenu {
         listStudent.update(createStudent(), idS);
         listStudent.print();
     }
-    public void deleteStudent(){
+
+    public void deleteStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập id cần xóa: ");
         int idX = sc.nextInt();
@@ -65,6 +93,11 @@ public class ManagerMenu {
     }
 
     public void sortStudent() {
+        for (int i = 0;i < listPeople.getCount();i++){
+            if(listPeople.getPeoples().get(i) instanceof Student){
+                listStudent.add(listPeople.getPeoples().get(i));
+            }
+        }
         listStudent.sortMinToMax();
         listStudent.print();
     }
@@ -83,11 +116,11 @@ public class ManagerMenu {
             }
             switch (choice) {
                 case 1 -> searchStudent();
-                case 2 -> addStudent();
-                case 3 -> updateStudent();
-                case 4 -> deleteStudent();
-                case 5 -> sumAvg();
-                case 6 -> sortStudent();
+                case 2 -> updateStudent();
+                case 3 -> deleteStudent();
+                case 4 -> sumAvg();
+                case 5 -> sortStudent();
+                case 6 -> addPeople();
                 case 0 -> System.exit(0);
                 default -> System.out.println("No choice!");
             }

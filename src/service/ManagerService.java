@@ -12,7 +12,5 @@ public interface ManagerService<T> {
     void print();
 
     void sort();
-    void sortMinToMax();
     T getNameStudent(int id);
-    double sumAvg();
 }
