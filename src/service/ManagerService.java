@@ -12,5 +12,6 @@ public interface ManagerService<T> {
     void print();
 
     void sort();
+
     T getNameStudent(int id);
 }

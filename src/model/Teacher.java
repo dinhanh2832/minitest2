@@ -1,6 +1,6 @@
 package model;
 
-public class Teacher extends People{
+public class Teacher extends People {
     private String subject;
 
     public String getSubject() {
@@ -12,9 +12,10 @@ public class Teacher extends People{
     }
 
     public Teacher(String name, int age, String subject) {
-        super(name,age);
+        super(name, age);
         this.subject = subject;
     }
+
     @Override
     public String toString() {
         return "Teacher{" +

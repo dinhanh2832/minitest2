@@ -1,4 +1,5 @@
 package service;
+
 import model.People;
 import model.Student;
 
@@ -23,6 +24,7 @@ public class ManagerStudent extends ManagerPeople {
     public void sortMinToMax() {
         students.sort(Comparator.comparingDouble(Student::getAvgScore));
     }
+
     public double sumAvg() {
         for (Student student : students) {
             sum += student.getAvgScore();
