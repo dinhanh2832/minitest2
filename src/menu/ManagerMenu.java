@@ -5,21 +5,19 @@ import model.Teacher;
 import service.ManagerPeople;
 import service.ManagerStudent;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class ManagerMenu {
     private final ManagerPeople listPeople = new ManagerPeople();
     private final ManagerStudent listStudent = new ManagerStudent();
 
-    public void addPeople(){
+    public void addPeople() {
         Scanner sc = new Scanner(System.in);
         System.out.println("1: Giáo viên");
         System.out.println("2: Học sinh");
         System.out.println("Chọn đối tượng muốn thêm:");
         int choice = sc.nextInt();
-        switch (choice){
+        switch (choice) {
             case 1 -> {
                 listPeople.add(createTeacher());
                 listPeople.print();
@@ -31,6 +29,7 @@ public class ManagerMenu {
             default -> throw new IllegalStateException("Unexpected value: " + choice);
         }
     }
+
     public Student createStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập tên: ");
@@ -41,6 +40,7 @@ public class ManagerMenu {
         double avg = sc.nextDouble();
         return new Student(name, age1, avg);
     }
+
     public Teacher createTeacher() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập tên: ");
@@ -95,19 +95,23 @@ public class ManagerMenu {
     }
 
     public void sortStudent() {
-        for (int i = 0;i < listPeople.getCount();i++){
-            if(listPeople.getPeoples().get(i) instanceof Student){
-                listStudent.add(listPeople.getPeoples().get(i));
+        ArrayList<Student> students = new ArrayList<>();
+        ManagerPeople students2 = new ManagerPeople();
+        for (int i = 0; i < listPeople.getCount(); i++) {
+            if (listPeople.getPeoples().get(i) instanceof Student) {
+                students.add((Student) listPeople.getPeoples().get(i));
             }
         }
-        listStudent.sortMinToMax();
-        Set<Student> listStudent2 = new HashSet<>();
-        for (int i = 0;i < listStudent.getCount();i++){
-            listStudent2.add((Student) listStudent.getPeoples().get(i));
+        for (int i = 0; i < listPeople.getCount(); i++) {
+            if (listPeople.getPeoples().get(i) instanceof Teacher) {
+                students2.add(listPeople.getPeoples().get(i));
+            }
         }
-        for(Student student : listStudent2){
-            System.out.println(student.toString());
-        }
+        ManagerStudent listStudent1 = new ManagerStudent();
+        listStudent1.setStudents(students);
+        listStudent1.sortMinToMax();
+        listStudent1.print();
+        students2.print();
     }
 
     public void checkChoice() {

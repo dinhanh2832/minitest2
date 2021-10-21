@@ -1,27 +1,39 @@
 package service;
-
+import model.People;
 import model.Student;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ManagerStudent extends ManagerPeople {
-    private final ArrayList<Student> students;
+    private ArrayList<Student> students;
     private double sum = 0;
 
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
+    }
 
     public ManagerStudent() {
-        this.students = new ArrayList<>();
     }
 
     public void sortMinToMax() {
         students.sort(Comparator.comparingDouble(Student::getAvgScore));
     }
-
     public double sumAvg() {
-        for (int i = 0; i < super.getCount(); i++) {
-            sum += students.get(i).getAvgScore();
+        for (Student student : students) {
+            sum += student.getAvgScore();
         }
         return sum;
+    }
+
+    @Override
+    public void print() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
     }
 }

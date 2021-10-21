@@ -5,12 +5,16 @@ import model.People;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class ManagerPeople implements ManagerService<People>{
-    private final ArrayList<People> peoples = new ArrayList<>();
+public class ManagerPeople implements ManagerService<People> {
+    private ArrayList<People> peoples = new ArrayList<>();
     private int count = 0;
 
     public ArrayList<People> getPeoples() {
         return peoples;
+    }
+
+    public void setPeoples(ArrayList<People> peoples) {
+        this.peoples = peoples;
     }
 
     public int getCount() {
@@ -33,7 +37,7 @@ public class ManagerPeople implements ManagerService<People>{
     @Override
     public void add(People people) {
         people.setId(count);
-        count ++;
+        count++;
         peoples.add(people);
 
     }
@@ -61,6 +65,7 @@ public class ManagerPeople implements ManagerService<People>{
     public void sort() {
         peoples.sort(Comparator.comparing(People::getName));
     }
+
     @Override
     public People getNameStudent(int id) {
         for (People people : peoples) {
