@@ -1,8 +1,5 @@
 package service;
-
-import model.People;
 import model.Student;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
